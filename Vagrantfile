@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
     boxes = [
         {
-            :name      => "vagrant",
+            :name      => "lab",
             :box       => "ubuntu/trusty64",
             :cpu       => "2",
             :mem       => "4096",
