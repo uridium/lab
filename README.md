@@ -9,6 +9,6 @@ Lab
 
 ### Install
 
-    git clone git@github.com:radar-aol-pl/lab.git
+    git clone git@github.com:uridium/lab.git
     cd lab
     vagrant up

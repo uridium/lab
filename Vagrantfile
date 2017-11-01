@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
             config.vm.box_check_update = false
             config.vm.network "private_network", type: "dhcp"
             config.vm.provision "shell",
-                path: "https://raw.githubusercontent.com/radar-aol-pl/dotfiles/master/install.sh",
+                path: "https://raw.githubusercontent.com/uridium/dotfiles/master/install.sh",
                 privileged: false
 
             unless opts[:sync_dir].nil?
