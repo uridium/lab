@@ -1,18 +1,17 @@
-Vagrant.configure(2) do |config|
+Vagrant.configure("2") do |config|
     boxes = [
         {
             :name      => "lab",
-            :box       => "ubuntu/trusty64",
-            :cpu       => "2",
-            :mem       => "4096",
-            :net       => "virtio",
+            :box       => "debian/buster64",
+            :cpu       => "4",
+            :mem       => "8192",
             :sync_dir  => [ {
-                "/tmp/vagrant" => "/vagrant",
+                "." => "/vagrant",
              } ],
             :forward   => [ {
+                "80" => "80",
+                "443" => "443",
                 "8080" => "8080",
-                "6379" => "6379",
-                "5432" => "5432",
              } ],
         },
     ]
@@ -24,6 +23,15 @@ Vagrant.configure(2) do |config|
             config.vm.box = opts[:box]
             config.vm.box_check_update = false
             config.vm.network "private_network", type: "dhcp"
+
+            config.vm.provision "shell",
+                inline: <<-SHELL
+                export DEBIAN_FRONTEND="noninteractive"
+                apt-get dist-upgrade -y -qq
+                apt-get install -y curl
+                apt-get clean
+                SHELL
+
             config.vm.provision "shell",
                 path: "https://raw.githubusercontent.com/uridium/dotfiles/master/install.sh",
                 privileged: false
@@ -48,7 +56,6 @@ Vagrant.configure(2) do |config|
                 virtualbox.customize ["modifyvm", :id, "--name", opts[:name]]
                 virtualbox.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
                 virtualbox.customize ["modifyvm", :id, "--memory", opts[:mem]]
-                virtualbox.customize ["modifyvm", :id, "--nictype1", opts[:net]]
             end
 
         end
