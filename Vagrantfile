@@ -27,8 +27,8 @@ Vagrant.configure("2") do |config|
             config.vm.provision "shell",
                 inline: <<-SHELL
                 export DEBIAN_FRONTEND="noninteractive"
-                apt-get install -y curl
                 apt-get update -y
+                apt-get install -y curl vim
                 apt-get clean
                 SHELL
 
