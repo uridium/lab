@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
     boxes = [
         {
             :name      => "lab",
-            :box       => "debian/buster64",
+            :box       => "ubuntu/focal64",
             :cpu       => "4",
             :mem       => "8192",
             :sync_dir  => [ {
@@ -23,14 +23,6 @@ Vagrant.configure("2") do |config|
             config.vm.box = opts[:box]
             config.vm.box_check_update = false
             config.vm.network "private_network", type: "dhcp"
-
-            config.vm.provision "shell",
-                inline: <<-SHELL
-                export DEBIAN_FRONTEND="noninteractive"
-                apt-get update -y
-                apt-get install -y curl vim
-                apt-get clean
-                SHELL
 
             config.vm.provision "shell",
                 path: "https://raw.githubusercontent.com/uridium/dotfiles/master/install.sh",
