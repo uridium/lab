@@ -28,6 +28,8 @@ Vagrant.configure("2") do |config|
                 path: "https://raw.githubusercontent.com/uridium/dotfiles/master/install.sh",
                 privileged: false
 
+            config.ssh.extra_args = ["-t", "cd /vagrant; bash --login"]
+
             unless opts[:sync_dir].nil?
                 opts[:sync_dir].each do |dir|
                     dir.each do |src, dst|
